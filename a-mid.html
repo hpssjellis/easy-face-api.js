@@ -53,9 +53,9 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
   
   const faceLandmarks = resizedResults.map(det => det.landmarks)
   const drawLandmarksOptions = {
-    lineWidth: 2,
-    drawLines: true,
-    color: 'green'
+  //  lineWidth: 2,
+ //   drawLines: true,
+  //  color: 'green'
   }
   faceapi.drawLandmarks(canvas, faceLandmarks, drawLandmarksOptions)
 }
