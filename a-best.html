@@ -43,9 +43,9 @@ async function onPlay() {
 
 async function run() {
 
-   await changeFaceDetector(TINY_FACE_DETECTOR)
-   await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/')
-   changeInputSize(128)
+   //await changeFaceDetector(TINY_FACE_DETECTOR)
+   await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/tiny_face_detector_model-weights_manifest.json')
+   //changeInputSize(128)
   
   // my attempt at the above combined
   // await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
