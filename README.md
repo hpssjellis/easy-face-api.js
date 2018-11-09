@@ -3,6 +3,7 @@ Trying to understand face-api.js
 
 
 
+https://hpssjellis.github.io/easy-face-api.js/a-best.html
 
 https://hpssjellis.github.io/easy-face-api.js/a-mid.html
 
