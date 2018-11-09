@@ -30,7 +30,7 @@
       const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
 
       if (result) {
-         faceapi.drawLandmarks(videoEl, myCanvas, [result],  true)
+         faceapi.drawLandmarks(videoEl, myContext, [result],  true)
       }
 
       setTimeout(() => onPlay())
