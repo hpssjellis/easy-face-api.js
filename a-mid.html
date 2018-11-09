@@ -87,7 +87,7 @@ async function onPlay() {
    const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
    
   if (result) {
-      await faceapi.drawLandmarks(document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
+      drawLandmarks(videoEl, document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
    }
 
 /*
