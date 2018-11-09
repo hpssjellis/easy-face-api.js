@@ -81,7 +81,7 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
   
 ////////////////////////// global variables ///////////////////////////////////
 const videoEl = document.getElementById('inputVideo')
-//let withFaceLandmarks = true  
+let withFaceLandmarks = true  
   
 ///////////////////////////////////////// main functions ///////////////////////////////////////  
 async function onPlay() {
@@ -95,10 +95,16 @@ async function onPlay() {
    
   // const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
   // const result =  await faceapi.detectSingleFace(videoEl, options)
-   const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
-   
-   
+   //const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
+  //const result =  await faceapi.detectSingleFace(videoEl, options)
+   const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
+   console.log('FaceDetectionTask')
+   console.log(FaceDetectionTask)
+  
+   const result = faceDetectionTask.withFaceLandmarks
    console.log(result)
+   console.log(result)
+  
    if (result) {
       //  drawLandmarks(videoEl, document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
       //  drawLandmarks(videoEl, document.getElementById('overlay'), [result],  withBoxes = true )
