@@ -2,6 +2,9 @@
 <html>
 <head>
   <script src="face-api.js"></script>
+  <script src="js/commons.js"></script>
+  <script src="js/drawing.js"></script>
+  <script src="js/faceDetectionControls.js"></script>   
 </head>
 <body>
   
@@ -24,8 +27,8 @@ async function onPlay() {
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
 
    const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
-   const result = faceDetectionTask.withFaceLandmarks()
-   //const result =  await faceapi.detectSingleFace(videoEl, options).true    
+   const result = faceDetectionTask.true
+   //const result =  await faceapi.detectSingleFace(videoEl, options).true    // combined above 2 lines
    
    if (result) {
       await faceapi.drawLandmarks(document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
@@ -38,11 +41,14 @@ async function onPlay() {
 
 
 async function run() {
-  // await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
-  
+
    await changeFaceDetector(TINY_FACE_DETECTOR)
    await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/')
    changeInputSize(128)
+  
+  // my attempt at the above combined
+  // await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+  
   
    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
    videoEl.srcObject = stream
