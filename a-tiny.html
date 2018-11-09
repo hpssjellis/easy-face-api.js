@@ -15,6 +15,12 @@
 
   <script>
 
+  
+    let myCanvas = document.getElementById('overlay');
+    let myContext = myCanvas.getContext('2d');    
+    
+    
+    
     async function onPlay() {
       
       let withFaceLandmarks = true
@@ -32,12 +38,7 @@
 
     async function run() {
       await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
-
-           let myCanvas = document.getElementById('overlay');
-        let myContext = myCanvas.getContext('2d');     
-      
-      
-      
+    
       const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
       const videoEl = document.getElementById('inputVideo')
       videoEl.srcObject = stream
