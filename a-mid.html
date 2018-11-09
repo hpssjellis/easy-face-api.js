@@ -168,8 +168,8 @@
     async function onPlay() {
       const videoEl = $('#inputVideo').get(0)
 
-      if(videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
-        return setTimeout(() => onPlay())
+    //  if(videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
+   //     return setTimeout(() => onPlay())
 
 
       const options = getFaceDetectorOptions()
