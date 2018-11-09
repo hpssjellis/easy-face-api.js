@@ -99,7 +99,7 @@ async function changeFaceDetector(detector) {
 
   $('#loader').show()
   if (!isFaceDetectionModelLoaded()) {
-    await getCurrentFaceDetectionNet().load('/')
+    await getCurrentFaceDetectionNet().load('https://hpssjellis.github.io/easy-face-api.js/')
   }
 
   $(`#${detector}_controls`).show()
