@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="face-api.js"></script>
+  <script src="js/face-api.js"></script>
   <script src="js/commons.js"></script>
   <script src="js/drawing.js"></script>
   <script src="js/faceDetectionControls.js"></script>
@@ -208,7 +208,7 @@
     async function run() {
       // load face detection and face landmark models
       await changeFaceDetector(TINY_FACE_DETECTOR)
-      await faceapi.loadFaceLandmarkModel('/')
+      await faceapi.loadFaceLandmarkModel('./models/')
       changeInputSize(128)
 
       // try to access users webcam and stream the images
