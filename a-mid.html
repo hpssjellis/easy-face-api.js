@@ -95,7 +95,7 @@ async function onPlay() {
    
   // const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
  //  const result =  await faceapi.detectSingleFace(videoEl, options)
-   const result =  await nets.detectSingleFace(videoEl, options).withFaceLandmarks()
+   const result =  await net.detectSingleFace(videoEl, options).withFaceLandmarks()
 
    console.log('result')
    console.log(result)
@@ -138,7 +138,22 @@ async function run() {
    //changeInputSize(128)
   
   // my attempt at the above 
-  const nets = await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+  net = await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+  
+  
+  /*
+     net = new faceapi.FaceLandmark68TinyNet()       // made it global                                                                                      
+   await net.load('./face_landmark_68_tiny_model-weights_manifest.json')                                                                                                                                 
+   console.log('face_landmark_68_tiny_model loaded')
+                                                                                             
+   await faceapi.loadTinyYolov2Model('./')
+   console.log('loadTinyYolov2Model loaded')
+  
+  */
+  
+  
+  
+  
   
   
    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
