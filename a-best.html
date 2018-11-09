@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="face-api.js"></script>
+</head>
+<body>
+  
+<input type=button value="run" onclick="{ run() }"> 
+<input type=button value="play" onclick="{ onPlay() }">  
+<div id="myDiv01">...</div><br>
+  
+<video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
+<canvas id="overlay" width="640" height="480" style="border: 1px solid #ddd;" ></canvas>  
+
+</body>
+
+<script>
+const videoEl = document.getElementById('inputVideo')
+  
+  
+  
+async function onPlay() {
+      
+   const videoEl = document.getElementById('inputVideo')
+   const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
+   const result =  await faceapi.detectSingleFace(videoEl, options).true    
+
+   if (result) {
+      await faceapi.drawLandmarks(document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
+   }
+
+   setTimeout(() => onPlay())
+}
+
+
+
+
+async function run() {
+   await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+   const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+   videoEl.srcObject = stream
+}
+
+</script>
+
+</html>
