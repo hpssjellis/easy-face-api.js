@@ -2,44 +2,107 @@
 <html>
 <head>
   <script src="face-api.js"></script>
+ <!-- <script src="js/commons.js"></script> -->
+  <script src="js/drawing.js"></script>
+  <!--<script src="js/faceDetectionControls.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css"> -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
 <body>
   
-  <input type=button value="run" onclick="{ run() }"> 
-  <input type=button value="play" onclick="{ onPlay() }">  
-  <div id="myDiv01">...</div><br>
   
-  <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
-   <canvas id="overlay" width="640" height="480" style="border: 1px solid #ddd;" title="myFaceCanvas: Zoomed in face"></canvas>  
-
+  
+    <input type=button value=run onclick="{
+       initFaceDetectionControls()
+       run()
+    }">
+   <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video><br>
+   <canvas id="overlay" />
+  
+  
+  
+ 
+  
+  <div id="myDiv01">...</div>
   </body>
 
   <script>
+    let forwardTimes = []
+    let withFaceLandmarks = false
+    let withBoxes = true
 
-  
+
+
     async function onPlay() {
-      
-      let withFaceLandmarks = true
-      
-      const videoEl = document.getElementById('inputVideo')
-      const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
-      const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
-      console.log(result)
+      const videoEl = $('#inputVideo').get(0)
+
+      if(videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
+        return setTimeout(() => onPlay())
+
+
+      const options = getFaceDetectorOptions()
+
+      const ts = Date.now()
+
+      const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
+      const result = withFaceLandmarks
+        ? await faceDetectionTask.withFaceLandmarks()
+        : await faceDetectionTask
+
+
+
+
+
+      const drawFunction = withFaceLandmarks
+        ? drawLandmarks
+        : drawDetections
+
       if (result) {
-         await faceapi.drawLandmarks(document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
+        drawFunction(videoEl, $('#overlay').get(0), [result], withBoxes)
+        
+     //  console.log('result')
+     //  console.log(result)
+     //  console.log('faceDetectionTask')
+      // console.log(faceDetectionTask)
+       
+    //  document.getElementById('myDiv01').innerHTML +=result +', '+ faceDetectionTask +'<br>' 
+        
       }
 
       setTimeout(() => onPlay())
     }
 
     async function run() {
-      await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
-    
+      // load face detection and face landmark models
+      await changeFaceDetector(TINY_FACE_DETECTOR)
+      await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/')
+      changeInputSize(128)
+
+      // try to access users webcam and stream the images
+      // to the video element
       const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-      const videoEl = document.getElementById('inputVideo')
+      const videoEl = $('#inputVideo').get(0)
       videoEl.srcObject = stream
+      
+      
+
     }
 
-  </script>
+    
+    
+    /*
+    function updateResults() {}
 
+    $(document).ready(function() {
+      renderNavBar('#navbar', 'webcam_face_tracking')
+      initFaceDetectionControls()
+      run()
+    })
+    
+    
+    */
+  </script>
+</body>
 </html>
