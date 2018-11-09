@@ -38,13 +38,14 @@ async function onPlay() {
 
 
 async function run() {
-
+   
+   // What the heck do these three lines do
    //await changeFaceDetector(TINY_FACE_DETECTOR)
-   await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/tiny_face_detector_model-weights_manifest.json')
+   //await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/tiny_face_detector_model-weights_manifest.json')
    //changeInputSize(128)
   
-  // my attempt at the above combined
-  // await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+  // my attempt at the above 
+   await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
   
   
    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
