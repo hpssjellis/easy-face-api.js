@@ -97,7 +97,7 @@ async function onPlay() {
   // const result =  await faceapi.detectSingleFace(videoEl, options)
    //const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks()
   //const result =  await faceapi.detectSingleFace(videoEl, options)
-   const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
+   const faceDetectionTask = await faceapi.detectSingleFace(videoEl, options)
    console.log('FaceDetectionTask')
    console.log(FaceDetectionTask)
   
