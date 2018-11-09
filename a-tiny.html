@@ -2,18 +2,6 @@
 <html>
 <head>
   <script src="face-api.js"></script>
-  <script src="js/commons.js"></script>
-  <script src="js/drawing.js"></script>
-  <script src="js/faceDetectionControls.js"></script>
-   <!--
-   
-   <link rel="stylesheet" href="styles.css">
-  
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
-
 </head>
 <body>
   
@@ -23,39 +11,23 @@
   
   <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
   <canvas id="overlay" /> 
-
-
   </body>
 
   <script>
-    let forwardTimes = []
-    let withFaceLandmarks = true
-    let withBoxes = true
 
     async function onPlay() {
-     // const videoEl = $('#inputVideo').get(0)
       const videoEl = document.getElementById('inputVideo')
-
-      const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.5 }) 
-
+      const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
       const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
 
-     // document.getElementById('myDiv01').innerHTML = 'wow'+result +'<br>' 
-      console.log(result)
-
-    
-
       if (result) {
-         faceapi.drawLandmarks(videoEl, document.getElementById('overlay'), [result],  withBoxes)
-        
-        //drawFunction(videoEl, document.getElementById('overlay'), [result],  withBoxes)
+         faceapi.drawLandmarks(videoEl, document.getElementById('overlay'), [result],  true)
       }
 
       setTimeout(() => onPlay())
     }
 
     async function run() {
-    
       await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
 
       const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
@@ -63,11 +35,6 @@
       videoEl.srcObject = stream
     }
 
-    function updateResults() {}
-
-
-  
-  
   </script>
 
 </html>
