@@ -16,8 +16,8 @@
   <script>
 
   
-    let myCanvas = document.getElementById('overlay');
-    let myContext = myCanvas.getContext('2d');    
+   // let myCanvas = document.getElementById('overlay');
+   // let myContext = myCanvas.getContext('2d');    
     
     
     
@@ -30,8 +30,8 @@
       const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
 
       if (result) {
-        // faceapi.drawLandmarks(videoEl, myContext, [result],  true)
-         faceapi.drawLandmarks(document.getElementById('overlay'), [result],  true)
+         faceapi.drawLandmarks(videoEl, 'overlay', [result],  true)
+
       }
 
       setTimeout(() => onPlay())
