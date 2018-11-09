@@ -29,19 +29,28 @@
   // original size
   return results.map(res => res.forSize(width, height))
 }
+  
+  
+  
+  
+  
 
 function drawDetections(dimensions, canvas, detections) {
   const resizedDetections = resizeCanvasAndResults(dimensions, canvas, detections)
   faceapi.drawDetection(canvas, resizedDetections)
 }
 
+  
+  
+  
+  
 function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
   const resizedResults = resizeCanvasAndResults(dimensions, canvas, results)
 
   if (withBoxes) {
     faceapi.drawDetection(canvas, resizedResults.map(det => det.detection))
   }
-
+  
   const faceLandmarks = resizedResults.map(det => det.landmarks)
   const drawLandmarksOptions = {
     lineWidth: 2,
@@ -85,9 +94,10 @@ async function onPlay() {
    //const result = faceDetectionTask.true
    
    const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
-   
+   console.log(result)
   if (result) {
-      drawLandmarks(videoEl, document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
+      //drawLandmarks(videoEl, document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
+      drawLandmarks(videoEl, document.getElementById('overlay'), result,  withBoxes = true )
    }
 
 /*
