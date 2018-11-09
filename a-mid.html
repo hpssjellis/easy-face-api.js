@@ -141,7 +141,7 @@ async function run() {
 //  net = await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
   
    net = new faceapi.loadTinyFaceDetectorModel       // made it global                                                                                      
-   await net.load('https://hpssjellis.github.io/easy-face-api.js/tiny_face_detector_model-weights_manifest.json')                                                                                                                                 
+   await net.loadQuantizedParams('https://hpssjellis.github.io/easy-face-api.js/tiny_face_detector_model-weights_manifest.json')                                                                                                                                 
    console.log('tiny_face_detector_model-weights_manifest.json')
   /*
      net = new faceapi.FaceLandmark68TinyNet()       // made it global                                                                                      
@@ -150,6 +150,9 @@ async function run() {
                                                                                              
    await faceapi.loadTinyYolov2Model('./')
    console.log('loadTinyYolov2Model loaded')
+  
+  .loadQuantizedParams
+  
   
   */
   
