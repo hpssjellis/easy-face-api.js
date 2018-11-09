@@ -64,7 +64,7 @@ getVideo = async function() {
      // console.log('cool')
     //  if(videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded()) 
      //   return setTimeout(() => onPlay())
-      document.getElementById('myDiv01').innerHTML +='cool'
+     // document.getElementById('myDiv01').innerHTML +='cool'
       // console.log('cool')
        
       const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold : 0.5 }) 
@@ -89,7 +89,7 @@ getVideo = async function() {
 
       const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
 
-      document.getElementById('myDiv01').innerHTML = 'wow'+result +'<br>' 
+     // document.getElementById('myDiv01').innerHTML = 'wow'+result +'<br>' 
       console.log(result)
 
      // const drawFunction = withFaceLandmarks
@@ -100,7 +100,7 @@ getVideo = async function() {
 
       //  document.getElementById('myDiv01').innerHTML = result
         
-        drawFunction(videoEl, document.getElementById('overlay'), [result], withBoxes)
+        drawFunction(videoEl, document.getElementById('overlay'), [result],  withBoxes = true)
       }
 
       setTimeout(() => onPlay())
