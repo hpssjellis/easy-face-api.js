@@ -15,12 +15,14 @@
 </body>
 
 <script>
+  
+////////////////////////// global variables ///////////////////////////////////
 const videoEl = document.getElementById('inputVideo')
+let withFaceLandmarks = true  
   
-  
-  
+///////////////////////////////////////// main functions ///////////////////////////////////////  
 async function onPlay() {
-   let withFaceLandmarks = true
+
    
    const videoEl = document.getElementById('inputVideo')
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
