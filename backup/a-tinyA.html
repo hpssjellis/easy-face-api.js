@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="face-api.js"></script>
+  <script src="js/commons.js"></script>
+  <script src="js/drawing.js"></script>
+  <script src="js/faceDetectionControls.js"></script>
+   <!--
+   
+   <link rel="stylesheet" href="styles.css">
+  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script> -->
+
+</head>
+<body>
+  
+  <input type=button value="run" onclick="{ run() }"> 
+  <input type=button value="play" onclick="{ onPlay() }">  
+  <div id="myDiv01">...</div><br>
+  
+  <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
+  <canvas id="overlay" /> 
+
+
+  </body>
+
+  <script>
+    let forwardTimes = []
+    let withFaceLandmarks = true
+    let withBoxes = true
+/*
+
+ var myVideoStream = document.getElementById('#inputVideo')     // make it a global variable 
+
+getVideo = async function() {  
+  const myCamera = 'front'
+                                                                                     
+  navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  navigator.getMedia({video: { facingMode: myCamera }, audio: false},
+                     
+    function(stream) {
+      myVideoStream.srcObject = stream   
+      myVideoStream.play();
+  }, 
+                     
+   function(error) {
+     alert('webcam not working');
+  });
+}
+   
+
+*/
+
+
+
+  
+
+    async function onPlay() {
+     // const videoEl = $('#inputVideo').get(0)
+      const videoEl = document.getElementById('inputVideo')
+     // console.log('cool')
+    //  if(videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded()) 
+     //   return setTimeout(() => onPlay())
+      document.getElementById('myDiv01').innerHTML +='cool'
+      // console.log('cool')
+       
+      const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold : 0.5 }) 
+      // console.log('options done')       
+     //  console.log(options)   
+     // const options = getFaceDetectorOptions()
+     //document.getElementById('myDiv01').innerHTML += options +'<br>'
+
+/*
+      const faceDetectionTask = await faceapi.detectSingleFace(videoEl, options)
+     console.log('facedectection task done')  
+            
+      console.log(faceDetectionTask)
+     
+      document.getElementById('myDiv01').innerHTML += faceDetectionTask +'<br>' 
+
+      const result =  await faceDetectionTask.withFaceLandmarks(true)
+
+*/
+
+
+
+      const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
+
+      document.getElementById('myDiv01').innerHTML = 'wow'+result +'<br>' 
+      console.log(result)
+
+     // const drawFunction = withFaceLandmarks
+    //    ? drawLandmarks
+     //   : drawDetections
+
+      if (result) {
+
+      //  document.getElementById('myDiv01').innerHTML = result
+        
+        drawFunction(videoEl, document.getElementById('overlay'), [result], withBoxes)
+      }
+
+      setTimeout(() => onPlay())
+    }
+
+    async function run() {
+      // load face detection and face landmark models
+      //  await changeFaceDetector(TINY_FACE_DETECTOR)
+     // 'tiny_face_detector'
+     // faceapi.nets.tinyFaceDetector
+     
+     
+     
+      //  net = new faceapi.FaceLandmark68TinyNet()       // made it global                                                                                      
+   ///await net.load('./face_landmark_68_tiny_model-weights_manifest.json')                                                                                                                                 
+  // console.log('face_landmark_68_tiny_model loaded')
+     
+     
+     
+     
+     
+    // await faceapi.loadFaceLandmarkTinyModel('/')
+     
+      // const net = new faceapi.loadTinyFaceDetectorModel('/')
+      // await net.load('./tiny_face_detector_model-weights_manifest.json') 
+      
+      
+      await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+      
+     // await faceapi.loadFaceLandmarkModel('/')
+      
+      //changeInputSize(128)
+
+      // try to access users webcam and stream the images
+      // to the video element
+      const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+      const videoEl = document.getElementById('inputVideo')
+      videoEl.srcObject = stream
+    }
+
+    function updateResults() {}
+
+  //  document.getElementById('document').ready(function() {
+     // renderNavBar('#navbar', 'webcam_face_tracking')
+   //   initFaceDetectionControls()
+   //   run()
+  //  })
+  
+
+  
+  
+  
+  </script>
+
+</html>
