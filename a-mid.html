@@ -207,9 +207,9 @@
 
     async function run() {
       // load face detection and face landmark models
-      await changeFaceDetector(TINY_FACE_DETECTOR)
+     // await changeFaceDetector(TINY_FACE_DETECTOR)
       await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/')
-      changeInputSize(128)
+     // changeInputSize(128)
 
       // try to access users webcam and stream the images
       // to the video element
