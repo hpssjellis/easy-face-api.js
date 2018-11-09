@@ -94,12 +94,15 @@ async function onPlay() {
    //const result = faceDetectionTask.true
    
   // const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
-   const result =  await faceapi.detectSingleFace(videoEl, options)
+  // const result =  await faceapi.detectSingleFace(videoEl, options)
+   const result =  await faceapi.detectSingleFace(videoEl, options, true)
+   
+   
    console.log(result)
-  if (result) {
-      //drawLandmarks(videoEl, document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
-     // drawLandmarks(videoEl, document.getElementById('overlay'), [result],  withBoxes = true )
-    //  drawLandmarks(videoEl, document.getElementById('overlay'), [result],  withBoxes = false )
+   if (result) {
+      //  drawLandmarks(videoEl, document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
+      //  drawLandmarks(videoEl, document.getElementById('overlay'), [result],  withBoxes = true )
+      //  drawLandmarks(videoEl, document.getElementById('overlay'), [result],  withBoxes = false )
       drawLandmarks(videoEl, document.getElementById('overlay'), [result],  true )
    }
 
