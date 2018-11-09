@@ -10,7 +10,8 @@
   <div id="myDiv01">...</div><br>
   
   <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
-  <canvas id="overlay" /> 
+   <canvas id="overlay" width="640" height="480" style="border: 1px solid #ddd;" title="myFaceCanvas: Zoomed in face"></canvas>  
+
   </body>
 
   <script>
@@ -31,7 +32,7 @@
       console.log(result)
       if (result) {
         // faceapi.drawLandmarks(videoEl, myCanvas, [result],  true)
-         await faceapi.drawLandmarks(videoEl, myContext, [result],  true)
+         await faceapi.drawLandmarks(videoEl, myCanvas, [result],  true)
 
       }
 
