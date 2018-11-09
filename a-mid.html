@@ -5,13 +5,13 @@
 </head>
 <body>
   
-<input type=button value="run" onclick="{ run() }"> 
-<input type=button value="play" onclick="{ onPlay() }">  
+<input type=button value="run" onclick="{ run() }"> <br>
+
+<video onplay="onPlay(this)" id="inputVideo" autoplay muted width="640" height="480" style=" border: 1px solid #ddd;"></video><br>
+<canvas id="overlay" width="640" height="480" style="position:relative; top:-480px; border: 1px solid #ddd;" ></canvas><br>
+  
 <div id="myDiv01">...</div><br>
   
-<video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
-<canvas id="overlay" width="640" height="480" style="border: 1px solid #ddd;" ></canvas>  
-
 </body>
 
 <script>
@@ -23,8 +23,11 @@ async function onPlay() {
       
    const videoEl = document.getElementById('inputVideo')
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
-   const result =  await faceapi.detectSingleFace(videoEl, options).true    
 
+   const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
+   const result = faceDetectionTask.true
+   //const result =  await faceapi.detectSingleFace(videoEl, options).true    // combined above 2 lines
+   
    if (result) {
       await faceapi.drawLandmarks(document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
    }
@@ -36,7 +39,16 @@ async function onPlay() {
 
 
 async function run() {
+   
+   // What the heck do these three lines do
+   //await changeFaceDetector(TINY_FACE_DETECTOR)
+   //await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/tiny_face_detector_model-weights_manifest.json')
+   //changeInputSize(128)
+  
+  // my attempt at the above 
    await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+  
+  
    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
    videoEl.srcObject = stream
 }
