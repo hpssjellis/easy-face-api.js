@@ -84,29 +84,24 @@ async function onPlay() {
    //const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
    //const result = faceDetectionTask.true
    
-  // const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
+   const result =  await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks
    
-  // if (result) {
-  //    await faceapi.drawLandmarks(document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
-  // }
+  if (result) {
+      await faceapi.drawLandmarks(document.getElementById('overlay'), result,  { lineWidth: 3, drawLines: true, color: 'green' } )
+   }
 
-  
-  
-  
-  
-  
+/*
    const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
-      const result = withFaceLandmarks
-        ? await faceDetectionTask.withFaceLandmarks()
-        : await faceDetectionTask
-      updateTimeStats(Date.now() - ts)
-      const drawFunction = withFaceLandmarks
-        ? drawLandmarks
-        : drawDetections
+  await faceDetectionTask.withFaceLandmarks()
+   drawLandmarks
+   
       if (result) {
         drawFunction(videoEl, document.getElementById('overlay'), [result], withBoxes)
   
       }
+  
+  
+  */
  
    setTimeout(() => onPlay())
 }
