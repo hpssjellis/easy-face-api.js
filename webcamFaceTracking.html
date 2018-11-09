@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="face-api.js"></script>
+  <script src="js/face-api.js"></script>
   <script src="js/commons.js"></script>
   <script src="js/drawing.js"></script>
   <script src="js/faceDetectionControls.js"></script>
@@ -128,7 +128,7 @@ getVideo = async function() {
       // await net.load('./tiny_face_detector_model-weights_manifest.json') 
       
       
-      await faceapi.loadTinyFaceDetectorModel('/')
+      await faceapi.loadTinyFaceDetectorModel('./models/')
       
      // await faceapi.loadFaceLandmarkModel('/')
       
