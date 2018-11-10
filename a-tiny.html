@@ -6,6 +6,7 @@
 <body>
   <h3 align=center>Face-Api.js by <a href="https://github.com/justadudewhohacks">@justadudewhohack</a> 
     simplified for beginners by <a href="https://github.com/hpssjellis/beginner-tensorflowjs-examples-in-javascript">@rocksetta</a></h3>
+  
 <input type=button value=run onclick="{
     run()
 }"><br><br>
@@ -79,11 +80,11 @@ async function onPlay() {
        drawFunction(videoEl, document.getElementById('overlay'), [result], true)
         
      //  console.log('result')
-     //  console.log(result)
+       console.log(result)
      //  console.log('faceDetectionTask')
       // console.log(faceDetectionTask)
        
-    //  document.getElementById('myDiv01').innerHTML +=result +', '+ faceDetectionTask +'<br>' 
+      document.getElementById('myDiv01').innerHTML = result + '<br>' 
         
    }
 
