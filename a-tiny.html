@@ -5,7 +5,7 @@
 </head>
 <body>
   <h3 align=center>face-api.js by <a href="https://github.com/justadudewhohacks">@justadudewhohack</a> 
-    simplified for beginners by <a href="https://github.com/hpssjellis/beginner-tensorflowjs-examples-in-javascript">@rocksetta</a></h3>
+    simplified for beginners by <a href="https://www.rocksetta.com/tensorflowjs/">@rocksetta</a></h3>
   
 <div id="myDiv01">...</div><br>  
   
@@ -19,9 +19,8 @@
 </body>
 
 <script>
-   // let forwardTimes = []
-   // let withFaceLandmarks = true
-    
+
+////////////////////////// A few helper functions ///////////////////////////////////////////    
 function resizeCanvasAndResults(dimensions, canvas, results) {
   const { width, height } = dimensions instanceof HTMLVideoElement
     ? faceapi.getMediaDimensions(dimensions)
@@ -49,24 +48,19 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
   faceapi.drawLandmarks(canvas, faceLandmarks, drawLandmarksOptions)
 }    
     
-    
+
+  
+////////////////////////// The 2 Main functions ///////////////////////////////////////////  
+  
 async function onPlay() {
    const videoEl = document.getElementById('inputVideo')
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
 
-  // const useTinyModel = true
-   /*
-   const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
-   const result = withFaceLandmarks
-        ? await faceDetectionTask.withFaceLandmarks(true)
-        : await faceDetectionTask
-
-    */
    
    result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
    if (result) {
        drawLandmarks(videoEl, document.getElementById('overlay'), [result], true)
-       
+      // Just printing the first of 68 face landmark x and y 
       document.getElementById('myDiv01').innerHTML = '0-of-68-x: '+ Math.round(result._unshiftedLandmarks._positions[0]._x) + 
         ', 0-of-68-y: '+ Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
         
