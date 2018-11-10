@@ -32,7 +32,7 @@
 
   <script>
     let forwardTimes = []
-    let withFaceLandmarks = false
+    let withFaceLandmarks = true
     let withBoxes = true
 
 
@@ -51,7 +51,7 @@
 
       const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
       const result = withFaceLandmarks
-        ? await faceDetectionTask.withFaceLandmarks()
+        ? await faceDetectionTask.withFaceLandmarks(useTinyModel)
         : await faceDetectionTask
 
 
