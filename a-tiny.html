@@ -4,8 +4,8 @@
   <script src="face-api.js"></script>
 </head>
 <body>
-  <h3 align=center>face-api.js by <a href="https://github.com/justadudewhohacks/face-api.js">@justadudewhohack </a> 
-    simplified for beginners by <a href="https://www.rocksetta.com/tensorflowjs/">@rocksetta</a></h3>
+  <h3 align=center>face-api.js by <a href="https://github.com/justadudewhohacks">@justadudewhohack</a> 
+    simplified for beginners by <a href="https://github.com/hpssjellis/beginner-tensorflowjs-examples-in-javascript">@rocksetta</a></h3>
   
 <div id="myDiv01">...</div><br>  
   
@@ -13,21 +13,22 @@
     run()
 }"><br><br>
    
-<video onplay="onPlay(this)" id="inputVideo" width="640" height="480" style=" border: 1px solid #ddd;"></video><br>
+<video onplay="onPlay(this)" id="inputVideo"  width="640" height="480" style=" border: 1px solid #ddd;"></video><br>
 <canvas id="overlay" width="640" height="480" style="position:relative; top:-487px; border: 1px solid #ddd;" ></canvas><br>
   
 </body>
 
 <script>
-
-///////////////////////////// A few helper functions //////////////////////////////////////////  
-  
+   // let forwardTimes = []
+   // let withFaceLandmarks = true
+    
 function resizeCanvasAndResults(dimensions, canvas, results) {
   const { width, height } = dimensions instanceof HTMLVideoElement
     ? faceapi.getMediaDimensions(dimensions)
     : dimensions
   canvas.width = width
   canvas.height = height
+
   return results.map(res => res.forSize(width, height))
 }
 
@@ -48,32 +49,36 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
   faceapi.drawLandmarks(canvas, faceLandmarks, drawLandmarksOptions)
 }    
     
-
-
-///////////////////////////// The Main 2 Functions //////////////////////////////////////////  
-  
+    
 async function onPlay() {
    const videoEl = document.getElementById('inputVideo')
-   
-   // inputSize divisible by 32 such as 128, 160, 224, 320, 416, 512, 608
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
-  
+
+  // const useTinyModel = true
+   /*
+   const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
+   const result = withFaceLandmarks
+        ? await faceDetectionTask.withFaceLandmarks(true)
+        : await faceDetectionTask
+
+    */
+   
    result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
    if (result) {
        drawLandmarks(videoEl, document.getElementById('overlay'), [result], true)
-     
-      // output to a div some information about the face landmarks x and y
-      document.getElementById('myDiv01').innerHTML = 'The Landmarks are 0-of-68-x: '+ 
-          Math.round(result._unshiftedLandmarks._positions[0]._x) + ', 0-of-68-y: '+ 
-          Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>'        
+       
+      document.getElementById('myDiv01').innerHTML = '0-of-68-x: '+ Math.round(result._unshiftedLandmarks._positions[0]._x) + 
+        ', 0-of-68-y: '+ Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
+        
    }
+
     setTimeout(() => onPlay())
 }
 
 async function run() {
-   ////////////////// load both needed models /////////////////////////
    await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
-   await faceapi.loadFaceLandmarkTinyModel('https://hpssjellis.github.io/easy-face-api.js/')   
+   await faceapi.loadFaceLandmarkTinyModel('https://hpssjellis.github.io/easy-face-api.js/')
+      
    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
    const videoEl = document.getElementById('inputVideo')
    videoEl.srcObject = stream
