@@ -87,6 +87,10 @@
      // await faceapi.loadFaceLandmarkModel('https://hpssjellis.github.io/easy-face-api.js/tiny_face_detector_model-weights_manifest.json')
      // changeInputSize(128)
 
+      
+      await faceapi.loadFaceLandmarkTinyModel('https://hpssjellis.github.io/easy-face-api.js/')
+      
+      
       // try to access users webcam and stream the images
       // to the video element
       const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
