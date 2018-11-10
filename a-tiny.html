@@ -63,8 +63,9 @@ async function onPlay() {
        drawLandmarks(videoEl, document.getElementById('overlay'), [result], true)
      
       // Just printing the first of 68 face landmark x and y 
-      document.getElementById('myDiv01').innerHTML = '0-of-68-x: '+ Math.round(result._unshiftedLandmarks._positions[0]._x) + 
-        ', 0-of-68-y: '+ Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
+      document.getElementById('myDiv01').innerHTML = 'First of 68 face landmarks, x: '+ 
+        Math.round(result._unshiftedLandmarks._positions[0]._x) + ', y: '+ 
+        Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
         
    }
 
