@@ -2,7 +2,6 @@
 <html>
 <head>
   <script src="face-api.js"></script>
-  <script src="js/drawing.js"></script>
 </head>
 <body>
 
@@ -21,22 +20,59 @@
     let withFaceLandmarks = true
     let withBoxes = true
 
-    async function onPlay() {
-      const videoEl = document.getElementById('inputVideo')
-      const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
+function resizeCanvasAndResults(dimensions, canvas, results) {
+  const { width, height } = dimensions instanceof HTMLVideoElement
+    ? faceapi.getMediaDimensions(dimensions)
+    : dimensions
+  canvas.width = width
+  canvas.height = height
 
-      const useTinyModel = true
-      const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
-      const result = withFaceLandmarks
+  // resize detections (and landmarks) in case displayed image is smaller than
+  // original size
+  return results.map(res => res.forSize(width, height))
+}
+
+function drawDetections(dimensions, canvas, detections) {
+  const resizedDetections = resizeCanvasAndResults(dimensions, canvas, detections)
+  faceapi.drawDetection(canvas, resizedDetections)
+}
+
+function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
+  const resizedResults = resizeCanvasAndResults(dimensions, canvas, results)
+
+  if (withBoxes) {
+    faceapi.drawDetection(canvas, resizedResults.map(det => det.detection))
+  }
+
+  const faceLandmarks = resizedResults.map(det => det.landmarks)
+  const drawLandmarksOptions = {
+    lineWidth: 2,
+    drawLines: true,
+    color: 'green'
+  }
+  faceapi.drawLandmarks(canvas, faceLandmarks, drawLandmarksOptions)
+}    
+    
+    
+    
+    
+    
+async function onPlay() {
+   const videoEl = document.getElementById('inputVideo')
+   const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
+
+   const useTinyModel = true
+   const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
+   const result = withFaceLandmarks
         ? await faceDetectionTask.withFaceLandmarks(useTinyModel)
         : await faceDetectionTask
 
-      const drawFunction = withFaceLandmarks
+   const drawFunction = withFaceLandmarks
         ? drawLandmarks
         : drawDetections
       
-      if (result) {
-        drawFunction(videoEl, document.getElementById('overlay'), [result], withBoxes)
+   if (result) {
+       drawFunction(videoEl, document.getElementById('overlay'), [result], withBoxes)
         
      //  console.log('result')
      //  console.log(result)
@@ -45,21 +81,20 @@
        
     //  document.getElementById('myDiv01').innerHTML +=result +', '+ faceDetectionTask +'<br>' 
         
-      }
+   }
 
-      setTimeout(() => onPlay())
-    }
+    setTimeout(() => onPlay())
+}
 
-    async function run() {
-      await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
-      await faceapi.loadFaceLandmarkTinyModel('https://hpssjellis.github.io/easy-face-api.js/')
+async function run() {
+   await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
+   await faceapi.loadFaceLandmarkTinyModel('https://hpssjellis.github.io/easy-face-api.js/')
       
-      const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-      const videoEl = document.getElementById('inputVideo')
-      videoEl.srcObject = stream
+   const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+   const videoEl = document.getElementById('inputVideo')
+   videoEl.srcObject = stream
+}
 
-    }
-
-  </script>
+</script>
 </body>
 </html>
