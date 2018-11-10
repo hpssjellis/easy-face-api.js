@@ -65,10 +65,10 @@ async function onPlay() {
    const videoEl = document.getElementById('inputVideo')
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
 
-   const useTinyModel = true
+  // const useTinyModel = true
    const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
    const result = withFaceLandmarks
-        ? await faceDetectionTask.withFaceLandmarks(useTinyModel)
+        ? await faceDetectionTask.withFaceLandmarks(true)
         : await faceDetectionTask
 
    const drawFunction = withFaceLandmarks
