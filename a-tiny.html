@@ -77,11 +77,6 @@ async function onPlay() {
       
    if (result) {
        drawFunction(videoEl, document.getElementById('overlay'), [result], true)
-        
-     //  console.log('result')
-       console.log(result)
-     //  console.log('faceDetectionTask')
-      // console.log(faceDetectionTask)
        
       document.getElementById('myDiv01').innerHTML = '0-of-68x: '+ result._unshiftedLandmarks._positions[0]._x + 
         ', 0-of-68y: '+ result._unshiftedLandmarks._positions[0]._y +'<br>' 
