@@ -50,6 +50,8 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
     
 async function onPlay() {
    const videoEl = document.getElementById('inputVideo')
+   
+   // inputSize divisible by 32 such as 128, 160, 224, 320, 416, 512, 608
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
   
    result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
