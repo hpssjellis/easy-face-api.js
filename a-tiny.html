@@ -13,15 +13,13 @@
     run()
 }"><br><br>
    
-<video onplay="onPlay(this)" id="inputVideo" autoplay muted width="640" height="480" style=" border: 1px solid #ddd;"></video><br>
+<video id="inputVideo"  width="640" height="480" style=" border: 1px solid #ddd;"></video><br>
 <canvas id="overlay" width="640" height="480" style="position:relative; top:-487px; border: 1px solid #ddd;" ></canvas><br>
   
 </body>
 
 <script>
-   // let forwardTimes = []
-   // let withFaceLandmarks = true
-    
+   
 function resizeCanvasAndResults(dimensions, canvas, results) {
   const { width, height } = dimensions instanceof HTMLVideoElement
     ? faceapi.getMediaDimensions(dimensions)
@@ -53,22 +51,14 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
 async function onPlay() {
    const videoEl = document.getElementById('inputVideo')
    const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, scoreThreshold : 0.3 }) 
-
-  // const useTinyModel = true
-   /*
-   const faceDetectionTask = faceapi.detectSingleFace(videoEl, options)
-   const result = withFaceLandmarks
-        ? await faceDetectionTask.withFaceLandmarks(true)
-        : await faceDetectionTask
-
-    */
-   
+  
    result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
    if (result) {
        drawLandmarks(videoEl, document.getElementById('overlay'), [result], true)
        
-      document.getElementById('myDiv01').innerHTML = '0-of-68-x: '+ Math.round(result._unshiftedLandmarks._positions[0]._x) + 
-        ', 0-of-68-y: '+ Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
+      document.getElementById('myDiv01').innerHTML = 'The Landmarks are 0-of-68-x: '+ 
+          Math.round(result._unshiftedLandmarks._positions[0]._x) + 
+         ', 0-of-68-y: '+ Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
         
    }
 
