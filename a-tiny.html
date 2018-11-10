@@ -38,7 +38,8 @@
 
 
     async function onPlay() {
-      const videoEl = $('#inputVideo').get(0)
+    //  const videoEl = $('#inputVideo').get(0)
+      const videoEl = document.getElementById('inputVideo')
 
     //  if(videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
     //    return setTimeout(() => onPlay())
@@ -65,7 +66,7 @@
     //  console.log(result)
       
       if (result) {
-        drawFunction(videoEl, $('#overlay').get(0), [result], withBoxes)
+        drawFunction(videoEl, document.getElementById('overlay'), [result], withBoxes)
         
      //  console.log('result')
      //  console.log(result)
@@ -89,7 +90,7 @@
       // try to access users webcam and stream the images
       // to the video element
       const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
-      const videoEl = $('#inputVideo').get(0)
+      const videoEl = document.getElementById('inputVideo')
       videoEl.srcObject = stream
       
       
