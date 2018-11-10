@@ -7,6 +7,8 @@
   <h3 align=center>Face-Api.js by <a href="https://github.com/justadudewhohacks">@justadudewhohack</a> 
     simplified for beginners by <a href="https://github.com/hpssjellis/beginner-tensorflowjs-examples-in-javascript">@rocksetta</a></h3>
   
+<div id="myDiv01">...</div><br>  
+  
 <input type=button value=run onclick="{
     run()
 }"><br><br>
@@ -14,13 +16,10 @@
 <video onplay="onPlay(this)" id="inputVideo" autoplay muted width="640" height="480" style=" border: 1px solid #ddd;"></video><br>
 <canvas id="overlay" width="640" height="480" style="position:relative; top:-487px; border: 1px solid #ddd;" ></canvas><br>
   
-<div id="myDiv01">...</div>
 </body>
 
 <script>
-    let forwardTimes = []
-    let withFaceLandmarks = true
-    
+   // let forwardTimes = []
     
 function resizeCanvasAndResults(dimensions, canvas, results) {
   const { width, height } = dimensions instanceof HTMLVideoElement
@@ -84,7 +83,8 @@ async function onPlay() {
      //  console.log('faceDetectionTask')
       // console.log(faceDetectionTask)
        
-      document.getElementById('myDiv01').innerHTML = result._unshiftedLandmarks._positions[0]._x + '<br>' 
+      document.getElementById('myDiv01').innerHTML = '0-of-68x: '+ result._unshiftedLandmarks._positions[0]._x + 
+        ', 0-of-68y: '+ result._unshiftedLandmarks._positions[0]._y +'<br>' 
         
    }
 
