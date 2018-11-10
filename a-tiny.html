@@ -19,8 +19,6 @@
 <script>
     let forwardTimes = []
     let withFaceLandmarks = true
-    let withBoxes = true
-
     
     
 function resizeCanvasAndResults(dimensions, canvas, results) {
@@ -78,7 +76,7 @@ async function onPlay() {
         : drawDetections
       
    if (result) {
-       drawFunction(videoEl, document.getElementById('overlay'), [result], withBoxes)
+       drawFunction(videoEl, document.getElementById('overlay'), [result], true)
         
      //  console.log('result')
      //  console.log(result)
