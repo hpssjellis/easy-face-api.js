@@ -79,8 +79,8 @@ async function onPlay() {
    if (result) {
        drawFunction(videoEl, document.getElementById('overlay'), [result], true)
        
-      document.getElementById('myDiv01').innerHTML = '0-of-68x: '+ result._unshiftedLandmarks._positions[0]._x + 
-        ', 0-of-68y: '+ result._unshiftedLandmarks._positions[0]._y +'<br>' 
+      document.getElementById('myDiv01').innerHTML = '0-of-68-x: '+ Math.round(result._unshiftedLandmarks._positions[0]._x) + 
+        ', 0-of-68-y: '+ Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
         
    }
 
