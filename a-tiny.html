@@ -28,7 +28,6 @@ function resizeCanvasAndResults(dimensions, canvas, results) {
     : dimensions
   canvas.width = width
   canvas.height = height
-
   return results.map(res => res.forSize(width, height))
 }
 
@@ -62,20 +61,19 @@ async function onPlay() {
    result = await faceapi.detectSingleFace(videoEl, options).withFaceLandmarks(true)
    if (result) {
        drawLandmarks(videoEl, document.getElementById('overlay'), [result], true)
-       
+     
+      // output to a div some information about the face landmarks x and y
       document.getElementById('myDiv01').innerHTML = 'The Landmarks are 0-of-68-x: '+ 
           Math.round(result._unshiftedLandmarks._positions[0]._x) + ', 0-of-68-y: '+ 
-          Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>' 
-        
+          Math.round(result._unshiftedLandmarks._positions[0]._y) +'<br>'        
    }
-
     setTimeout(() => onPlay())
 }
 
 async function run() {
+   ////////////////// load both needed models /////////////////////////
    await faceapi.loadTinyFaceDetectorModel('https://hpssjellis.github.io/easy-face-api.js/')
-   await faceapi.loadFaceLandmarkTinyModel('https://hpssjellis.github.io/easy-face-api.js/')
-      
+   await faceapi.loadFaceLandmarkTinyModel('https://hpssjellis.github.io/easy-face-api.js/')   
    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
    const videoEl = document.getElementById('inputVideo')
    videoEl.srcObject = stream
