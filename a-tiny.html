@@ -19,7 +19,9 @@
 </body>
 
 <script>
-   
+
+///////////////////////////// A few helper functions //////////////////////////////////////////  
+  
 function resizeCanvasAndResults(dimensions, canvas, results) {
   const { width, height } = dimensions instanceof HTMLVideoElement
     ? faceapi.getMediaDimensions(dimensions)
@@ -47,7 +49,10 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
   faceapi.drawLandmarks(canvas, faceLandmarks, drawLandmarksOptions)
 }    
     
-    
+
+
+///////////////////////////// The Main 2 Functions //////////////////////////////////////////  
+  
 async function onPlay() {
    const videoEl = document.getElementById('inputVideo')
    
