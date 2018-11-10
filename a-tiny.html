@@ -35,14 +35,11 @@ function resizeCanvasAndResults(dimensions, canvas, results) {
 }
 
   
-  
 function drawDetections(dimensions, canvas, detections) {
   const resizedDetections = resizeCanvasAndResults(dimensions, canvas, detections)
   faceapi.drawDetection(canvas, resizedDetections)
 }
 
-  
-  
   
 function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
   const resizedResults = resizeCanvasAndResults(dimensions, canvas, results)
@@ -50,16 +47,9 @@ function drawLandmarks(dimensions, canvas, results, withBoxes = true) {
       faceapi.drawDetection(canvas, resizedResults.map(det => det.detection))
   }
   const faceLandmarks = resizedResults.map(det => det.landmarks)
-  const drawLandmarksOptions = {
-      lineWidth: 2,
-      drawLines: true,
-      color: 'green'
-  }
+  const drawLandmarksOptions = { lineWidth: 2, drawLines: true, color: 'green' }
   faceapi.drawLandmarks(canvas, faceLandmarks, drawLandmarksOptions)
 }    
-    
-    
-    
     
     
 async function onPlay() {
